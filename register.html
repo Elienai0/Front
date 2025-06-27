@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para registro */
+        .register-section {
+            background: url('img/hero4.png') no-repeat center center/cover;
+            padding: 80px 0;
+            min-height: calc(100vh - 150px);
+            display: flex;
+            align-items: center;
+        }
+        
+        .register-container {
+            width: 450px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .register-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #222;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group .error-message {
+            color: #ff3333;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .register-btn {
+            width: 100%;
+            padding: 12px;
+            background: #088178;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        .register-btn:hover {
+            background: #065f58;
+        }
+        
+        .register-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="shop.html">Tienda</a></li>
+                <li><a class="active" href="login.html">Inicia Sesion</a></li>
+                <li><a class="active" href="about.html">Informacion</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    <!-- Sección de Registro -->
+    <section class="register-section">
+        <div class="register-container">
+            <h2>Crear Cuenta</h2>
+            <form id="registerForm">
+                <!-- Nombre -->
+                <div class="form-group">
+                    <label for="firstName">Nombre</label>
+                    <input type="text" id="firstName" required>
+                    <div class="error-message" id="firstNameError">Solo letras y espacios (2-50 caracteres)</div>
+                </div>
+                
+                <!-- Apellido -->
+                <div class="form-group">
+                    <label for="lastName">Apellido</label>
+                    <input type="text" id="lastName" required>
+                    <div class="error-message" id="lastNameError">Solo letras y espacios (2-50 caracteres)</div>
+                </div>
+                
+                <!-- Correo -->
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" required>
+                    <div class="error-message" id="emailError">Ingrese un correo válido</div>
+                </div>
+                
+                <!-- Teléfono -->
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" required>
+                    <div class="error-message" id="phoneError">Solo números (8-15 dígitos)</div>
+                </div>
+                
+                <button type="submit" class="register-btn" disabled>REGISTRARSE</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer (personalízalo según tu diseño) -->
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo.png" alt="">
+            <h4>Contacto</h4>
+            <p><strong>Dirección:</strong> Dirección de ejemplo</p>
+            <p><strong>Teléfono:</strong> +123 456 789</p>
+        </div>
+        <div class="copyright">
+            <p>© 2023 Tu Empresa. Todos los derechos reservados</p>
+        </div>
+    </footer>
+
+    <!-- Validaciones en JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('registerForm');
+            const inputs = {
+                firstName: document.getElementById('firstName'),
+                lastName: document.getElementById('lastName'),
+                email: document.getElementById('email'),
+                phone: document.getElementById('phone')
+            };
+            const submitBtn = document.querySelector('.register-btn');
+
+            // Expresiones regulares para validación
+            const patterns = {
+                name: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$/,
+                email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                phone: /^\d{8,15}$/
+            };
+
+            // Validación en tiempo real
+            Object.keys(inputs).forEach(key => {
+                inputs[key].addEventListener('input', function() {
+                    validateField(key);
+                    checkFormValidity();
+                });
+            });
+
+            function validateField(fieldName) {
+                const value = inputs[fieldName].value.trim();
+                const errorElement = document.getElementById(`${fieldName}Error`);
+                let isValid = false;
+
+                switch(fieldName) {
+                    case 'firstName':
+                    case 'lastName':
+                        isValid = patterns.name.test(value);
+                        break;
+                    case 'email':
+                        isValid = patterns.email.test(value);
+                        break;
+                    case 'phone':
+                        isValid = patterns.phone.test(value);
+                        break;
+                }
+
+                if (!isValid && value !== '') {
+                    inputs[fieldName].style.borderColor = '#ff3333';
+                    errorElement.style.display = 'block';
+                } else {
+                    inputs[fieldName].style.borderColor = '#ddd';
+                    errorElement.style.display = 'none';
+                }
+
+                return isValid;
+            }
+
+            function checkFormValidity() {
+                const allValid = Object.keys(inputs).every(key => {
+                    return validateField(key) && inputs[key].value.trim() !== '';
+                });
+                submitBtn.disabled = !allValid;
+            }
+
+            // Envío del formulario
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Registro exitoso!'); // Reemplaza con tu lógica de envío
+                // window.location.href = 'login.html'; // Redirigir después de registrar
+            });
+        });
+    </script>
+</body>
+</html>

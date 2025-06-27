@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para la página de login */
+        .section-login {
+            background: url('img/hero4.png') no-repeat center center/cover;
+            padding: 80px 0;
+            height: calc(100vh - 150px);
+            display: flex;
+            align-items: center;
+        }
+        
+        .login-container {
+            width: 400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+        }
+        
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #222;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .login-form input:focus {
+            border-color: #088178;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #088178;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .login-btn:hover {
+            background: #065f58;
+            transform: translateY(-2px);
+        }
+        
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .login-links a {
+            color: #088178;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .login-links a:hover {
+            text-decoration: underline;
+            color: #065f58;
+        }
+    </style>
+</head>
+<body>
+    
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="shop.html">Tienda</a></li>
+                <li><a class="active" href="login.html">Inicia Sesion</a></li>
+                <li><a class="active" href="about.html">Informacion</a></li>
+                <li><a href="contact.html">Contacto</a></li>
+                <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+
+    
+    <section class="section-login">
+        <div class="login-container">
+            <h2>Iniciar Sesión</h2>
+            <form class="login-form" action="#" method="POST">
+                <div class="form-group">
+                    <input type="text" placeholder="Correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Contraseña" required>
+                </div>
+                <button type="submit" class="login-btn">INGRESAR</button>
+                <div class="login-links">
+                    <a href="#">¿Olvidaste tu contraseña?</a> | 
+                    <a href="register.html">Crear cuenta</a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+       <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo.png" alt="">
+            <h4>Contactanos</h4>
+            <p><strong>Dirección: </strong> Cerro de Coatepec S/N, Ciudad Universitaria, Universitaria, 50110 Toluca de Lerdo, Méx.</p>
+            <p><strong>Número:</strong> 722 214 0855</p>
+            <p><strong>Horario:</strong> 10:00 - 18:00, Lunes a Sabado</p>
+            <div class="follow">
+                <h4>Siguenos</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <h4>Informacion</h4>
+            <a href="#">Sobre nosotros</a>
+            <a href="#">Politica de Privacidad</a>
+            <a href="#">Terminos y Condiciones/a>
+            <a href="#">Contactanos</a>
+        </div>
+
+        <div class="col">
+            <h4>Mi cuenta</h4>
+            <a href="#">Ingresar</a>
+            <a href="#">Mi carrito</a>
+            <a href="#">Lista de Deseos</a>
+            <a href="#">Ayuda</a>
+        </div>
+
+        <div class="col install">
+            <h4>Applicación</h4>
+            <p>Desde App Store o Google Play</p>
+            <div class="row">
+                <img src="img/pay/app.jpg" alt="">
+                <img src="img/pay/play.jpg" alt="">
+            </div>
+            <p>Pagos Protegidos por Xi Jin Ping </p>
+            <img src="img/pay/pay.png" alt="">
+        </div>
+
+        <div class="copyright">
+            <p>© 2021, CausaTech -Derechos reservaos como el último pollo a la brasa</p>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script src="login.html"></script>
+</body>
+</html>
