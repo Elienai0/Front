@@ -1,0 +1,20 @@
+[
+  {
+    "imagen": "img/products/f1.jpg",
+    "nombre": "Cartoon Astronaut T-Shirts",
+    "precio": 10,
+    "cantidad": 1
+  },
+  {
+    "imagen": "img/products/f2.jpg",
+    "nombre": "Cartoon Astronaut T-Shirts",
+    "precio": 10,
+    "cantidad": 1
+  },
+  {
+    "imagen": "img/products/f3.jpg",
+    "nombre": "Cartoon Astronaut T-Shirts",
+    "precio": 10,
+    "cantidad": 1
+  }
+]
