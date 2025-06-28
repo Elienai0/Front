@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><title>Login Debug</title></head>
+<body>
+
+<form id="login-form">
+  <input type="text" id="username" placeholder="root" required>
+  <input type="password" id="password" placeholder="root" required>
+  <button type="submit">Ingresar</button>
+</form>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async e => {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+
+  try {
+    const res = await fetch('http://alextcwserver.ddns.net:8200/auth/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({username, password})
+    });
+
+    const data = await res.json();
+    console.log('Respuesta login:', data);
+
+    if (!data.token) {
+      alert('No se recibió token del servidor');
+      return;
+    }
+
+    localStorage.setItem('jwtToken', data.token);
+    alert('Login exitoso. Token guardado.');
+  } catch (error) {
+    alert('Error: ' + error.message);
+  }
+});
+</script>
+
+</body>
+</html>
