@@ -1,6 +1,6 @@
 const tbody = document.getElementById("tabla-productos");
 let sumaSubtotal = 0.00;
-const token = localStorage.getItem("token"); // O como guardes el login del usuario
+const token = localStorage.getItem("token"); 
 
 function actualizarTotales() {
     let nuevaSuma = 0.00;
