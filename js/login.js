@@ -1,65 +1,55 @@
-async function handleLogin(event) {
-    event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.querySelector('.login-form');
 
-    const form = event.target;
-    const username = form.querySelector('#username').value.trim();
-    const password = form.querySelector('#password').value.trim();
+  if (!loginForm) {
+    console.error('❌ No se encontró el formulario con la clase .login-form');
+    return;
+  }
 
-    const button = form.querySelector('button[type="submit"]');
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const username = loginForm.querySelector('input[type="text"]').value.trim();
+    const password = loginForm.querySelector('input[type="password"]').value.trim();
+    const button = loginForm.querySelector('button[type="submit"]');
+    const errorDiv = loginForm.querySelector('.login-error');
+
+    if (errorDiv) errorDiv.remove();
+
     button.disabled = true;
     button.textContent = 'Cargando...';
 
-    // Eliminar errores previos
-    const existingError = form.querySelector('.login-error');
-    if (existingError) existingError.remove();
-
     try {
-        const response = await fetch('http://alextcwserver.ddns.net:8200/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
+      const res = await fetch('http://alextcwserver.ddns.net:8200/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
 
-        if (!response.ok) {
-            // Si status no es OK, lanzar error con mensaje del servidor o genérico
-            const errorText = await response.text();
-            throw new Error(errorText || 'Credenciales incorrectas');
-        }
+      const data = await res.json();
+      console.log('Respuesta login:', data);
 
-        const data = await response.json();
+      if (!res.ok || !data.token) {
+        throw new Error(data.message || 'Credenciales incorrectas');
+      }
 
-        if (!data.token) throw new Error('No se recibió token del servidor');
+      localStorage.setItem('jwtToken', data.token);
+      window.location.href = 'cart.html'; // Redirige al carrito
 
-        localStorage.setItem('jwtToken', data.token);
+    } catch (err) {
+      const msg = document.createElement('div');
+      msg.classList.add('login-error');
+      msg.style.color = 'red';
+      msg.style.marginTop = '10px';
+      msg.textContent = err.message.includes('Failed to fetch')
+        ? 'No se pudo conectar con el servidor'
+        : err.message;
 
-        // Redirigir al carrito o a la página que corresponda
-        window.location.href = 'cart.html';
-
-    } catch (error) {
-        const errorElement = document.createElement('div');
-        errorElement.classList.add('login-error');
-        errorElement.style.color = '#ff3333';
-        errorElement.style.padding = '10px';
-        errorElement.style.marginTop = '15px';
-        errorElement.style.borderRadius = '5px';
-        errorElement.style.backgroundColor = '#ffeeee';
-        errorElement.style.textAlign = 'center';
-        errorElement.textContent = error.message.includes('Failed to fetch')
-            ? 'Error de conexión con el servidor'
-            : error.message;
-
-        form.appendChild(errorElement);
+      loginForm.appendChild(msg);
 
     } finally {
-        button.disabled = false;
-        button.textContent = 'INGRESAR';
+      button.disabled = false;
+      button.textContent = 'INGRESAR';
     }
-}
-
-// Asociar el evento submit al formulario
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.querySelector('.login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', handleLogin);
-    }
+  });
 });
